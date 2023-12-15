@@ -16,10 +16,13 @@ print(f"Promedio de Edad Fallecidos: {promedio_edad_fallecidos}")
 print(f"Promedio de Edad No Fallecidos: {promedio_edad_no_fallecidos}")
 
 tipos_de_datos = df.dtypes
-print("Tipos de Datos:")
+print("\nTipos de Datos:")
 print(tipos_de_datos)
 
-fumadores_por_genero = df.groupby(['sex', 'smoking']).size().unstack()
-
-print("\nCantidad de Hombres y Mujeres Fumadores:")
-print(fumadores_por_genero)
+# Verificar la presencia de 'is_male' e 'is_smoker' antes de agrupar
+if 'is_male' in df.columns and 'is_smoker' in df.columns:
+    fumadores_por_genero = df.groupby(['is_male', 'is_smoker']).size().unstack()
+    print("\nCantidad de Hombres y Mujeres Fumadores:")
+    print(fumadores_por_genero)
+else:
+    print("Las columnas 'is_male' y/o 'is_smoker' no están presentes en el DataFrame.")
